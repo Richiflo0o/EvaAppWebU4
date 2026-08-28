@@ -166,4 +166,4 @@ Marque con una `x` y complete:
 
 - [x] Declaro que estas respuestas son de mi autoría, redactadas durante la sesión de examen, sin asistencia de inteligencia artificial ni comunicación con terceros.
 
-Firma (nombre completo): ____Ricardo Velez__________
+Firma (nombre completo): ____Ricardo Elias Velez Lopez__________
