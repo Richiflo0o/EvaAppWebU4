@@ -49,6 +49,7 @@
 
 **Respuesta:**
 
+**WebExtensions de navegador donde el servidor envía JavaScript que el cliente ejecuta**
 
 
 ---
