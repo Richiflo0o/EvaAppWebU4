@@ -133,7 +133,7 @@
 
 **Respuesta:**
 
-
+**Si se cachea un 502 o timeout, la próxima petición devolverá el error cacheado aunque el servicio se haya recuperado. El sistema quedaría "atrapado" con errores obsoletos hasta que expire el TTL.**
 
 ---
 
