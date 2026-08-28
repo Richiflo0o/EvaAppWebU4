@@ -86,12 +86,12 @@
 
 | Criterio | SOAP | REST |
 |---|---|---|
-| Formato del mensaje | | |
-| Contrato de descripción | | |
-| Sobrecarga de serialización | | |
-| Tipado | | |
-| Facilidad de consumo desde un cliente móvil | | |
-| Manejo de errores | | |
+| Formato del mensaje |XML envelope con header/body |JSON, XML, XMLText, etc. |
+| Contrato de descripción |WSDL | OpenAPI/Swagger|
+| Sobrecarga de serialización |XML namespaces, SOAP envelope|JSON simple, menos overhead |
+| Tipado |Fuerte |Débil |
+| Facilidad de consumo desde un cliente móvil |Complejo, pesado | Ligero, fácil integración|
+| Manejo de errores |Fault codes SOAP |Códigos HTTP estándar|
 
 **b) El Servicio de Rentas Internas del Ecuador expone la autorización de comprobantes electrónicos mediante servicios SOAP. Explique dos razones técnicas por las que una institución de ese tipo mantiene SOAP en lugar de migrar a REST. (3 puntos)**
 
