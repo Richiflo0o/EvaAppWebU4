@@ -43,7 +43,7 @@
 
 **Respuesta:**
 
-
+**El proyecto al guardar el estado solo en el JWT cumple Stateless. Esto significa que cada petición es independiente y no depende de sesiones almacenadas en servidor. Para escalar a varios servidores detrás de un balanceador, cualquier servidor puede procesar cualquier petición porque el estado viaja en el token, no en memoria. No hay sesión que sincronizar entre servidores**
 
 **c) De las seis restricciones, indique cuál es opcional y dé un ejemplo real de una API que la use. (2 puntos)**
 
