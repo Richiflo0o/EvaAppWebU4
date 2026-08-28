@@ -3,16 +3,22 @@ package ec.edu.uteq.appweb.biblioteca.web.controller;
 import ec.edu.uteq.appweb.biblioteca.domain.Libro;
 import ec.edu.uteq.appweb.biblioteca.service.LibroService;
 import ec.edu.uteq.appweb.biblioteca.web.dto.ApiResponse;
+import ec.edu.uteq.appweb.biblioteca.web.dto.LibroRequest;
 import ec.edu.uteq.appweb.biblioteca.web.dto.LibroResponse;
 import ec.edu.uteq.appweb.biblioteca.web.dto.PageMeta;
 import ec.edu.uteq.appweb.biblioteca.web.mapper.LibroMapper;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -44,5 +50,23 @@ public class LibroController {
         PageMeta meta = PageMeta.de(libros);
 
         return ResponseEntity.ok(ApiResponse.ok(respuesta, "Libros listados", meta));
+    }
+    // Agregar al LibroController.java
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<LibroResponse>> crear(
+            @Valid @RequestBody LibroRequest request) {
+
+        Libro libro = libroService.crear(request);
+        LibroResponse respuesta = LibroMapper.aRespuesta(libro);
+
+        URI location = UriComponentsBuilder
+                .fromPath("/api/v1/libros/{id}")
+                .buildAndExpand(libro.getId())
+                .toUri();
+
+        return ResponseEntity.created(location)
+                .body(ApiResponse.success(respuesta));
     }
 }
