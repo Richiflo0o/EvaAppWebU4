@@ -12,11 +12,11 @@
 
 | Campo | Valor |
 |---|---|
-| Apellidos y nombres | |
-| Número de carnet | |
-| Correo institucional | |
-| Fecha | |
-| URL del repositorio | |
+| Apellidos y nombres | Velez Lopez Ricardo Elias|
+| Número de carnet | 1316400942 |
+| Correo institucional | rvelezl3@uteq.edu.ec|
+| Fecha | 28/08/2026 |
+| URL del repositorio | https://github.com/Richiflo0o/EvaAppWebU4 |
 
 ---
 
@@ -26,6 +26,17 @@
 
 **Respuesta:**
 
+**1. Client-Server**
+
+**2. Stateless**
+
+**3. Cache**
+
+**4. Uniform Interface**
+
+**5. Layered System**
+
+**6. Code-On-Demand**
 
 
 **b) El proyecto base expone `GET /api/v1/autores` y guarda el estado de la sesión del usuario solo en el JWT que el cliente envía en cada petición. Explique qué restricción concreta se está cumpliendo con esa decisión y qué consecuencia práctica tiene para escalar el sistema a varios servidores detrás de un balanceador. (3 puntos)**
