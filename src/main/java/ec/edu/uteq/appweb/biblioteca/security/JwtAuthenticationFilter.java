@@ -4,9 +4,15 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * ============================================================================
@@ -39,7 +45,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest peticion,
                                     HttpServletResponse respuesta,
                                     FilterChain cadena) throws ServletException, IOException {
-        // TODO-U4-2: implementar la extraccion y validacion del token.
+
+        String header = peticion.getHeader("Authorization");
+
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring(7);
+
+            if (jwtService.esValido(token)) {
+                String username = jwtService.extraerUsername(token);
+                String rol = jwtService.extraerRol(token);
+
+                List<SimpleGrantedAuthority> autoridades = List.of(
+                        new SimpleGrantedAuthority("ROLE_" + rol)
+                );
+
+                UsernamePasswordAuthenticationToken autenticacion =
+                        new UsernamePasswordAuthenticationToken(username, null, autoridades);
+                autenticacion.setDetails(new WebAuthenticationDetailsSource().buildDetails(peticion));
+
+                SecurityContextHolder.getContext().setAuthentication(autenticacion);
+    }
+        }
+
         cadena.doFilter(peticion, respuesta);
     }
 }

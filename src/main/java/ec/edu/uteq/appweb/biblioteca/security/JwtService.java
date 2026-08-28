@@ -1,7 +1,16 @@
 package ec.edu.uteq.appweb.biblioteca.security;
 
+import ec.edu.uteq.appweb.biblioteca.domain.Rol;
 import ec.edu.uteq.appweb.biblioteca.domain.Usuario;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKey;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * ============================================================================
@@ -46,19 +55,51 @@ public class JwtService {
 
     // TODO-U4-2: inyecte @Value("${app.jwt.secreto}") y @Value("${app.jwt.expiracion-minutos}")
 
+    private final SecretKey clave;
+    private final long expiracionMs;
+
+    public JwtService(@Value("${app.jwt.secreto}") String secreto,
+                      @Value("${app.jwt.expiracion-minutos}") long expiracionMinutos) {
+        this.clave = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secreto));
+        this.expiracionMs = expiracionMinutos * 60 * 1000;
+    }
+
     public String generar(Usuario usuario) {
-        throw new UnsupportedOperationException("TODO-U4-2: generar el JWT firmado");
+        Date ahora = new Date();
+        Date expiracion = new Date(ahora.getTime() + expiracionMs);
+
+        return Jwts.builder()
+                .subject(usuario.getUsername())
+                .claim("rol", usuario.getRol().name())
+                .id(UUID.randomUUID().toString())
+                .issuedAt(ahora)
+                .expiration(expiracion)
+                .signWith(clave)
+                .compact();
     }
 
     public String extraerUsername(String token) {
-        throw new UnsupportedOperationException("TODO-U4-2: extraer el claim sub");
+        return extraerClaims(token).getSubject();
     }
 
     public String extraerRol(String token) {
-        throw new UnsupportedOperationException("TODO-U4-2: extraer el claim rol");
+        return extraerClaims(token).get("rol", String.class);
     }
 
     public boolean esValido(String token) {
-        throw new UnsupportedOperationException("TODO-U4-2: validar firma y expiracion");
+        try {
+            extraerClaims(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    private Claims extraerClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(clave)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }

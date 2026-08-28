@@ -1,7 +1,15 @@
 package ec.edu.uteq.appweb.biblioteca.web.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ec.edu.uteq.appweb.biblioteca.domain.Usuario;
+import ec.edu.uteq.appweb.biblioteca.repository.UsuarioRepository;
+import ec.edu.uteq.appweb.biblioteca.security.JwtService;
+import ec.edu.uteq.appweb.biblioteca.web.dto.ApiResponse;
+import ec.edu.uteq.appweb.biblioteca.web.dto.LoginRequest;
+import ec.edu.uteq.appweb.biblioteca.web.dto.LoginResponse;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * TODO-U4-2: autenticacion.
@@ -25,4 +33,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     // TODO-U4-2
+    private final UsuarioRepository usuarioRepository;
+    private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest request) {
+        Usuario usuario = usuarioRepository.findByUsernameAndActivoTrue(request.username())
+                .orElseThrow(() -> new ec.edu.uteq.appweb.biblioteca.exception.RecursoNoEncontradoException("Usuario no encontrado"));
+
+        if (!passwordEncoder.matches(request.password(), usuario.getPasswordHash())) {
+            throw new ec.edu.uteq.appweb.biblioteca.exception.ReglaNegocioException("Credenciales incorrectas");
+        }
+
+        String token = jwtService.generar(usuario);
+
+        LoginResponse respuesta = new LoginResponse(
+                usuario.getUsername(),
+                usuario.getRol().name(),
+                "Bearer",
+                3600
+        );
+
+        return ResponseEntity.ok(ApiResponse.success(respuesta, "Login exitoso"));
+    }
 }
