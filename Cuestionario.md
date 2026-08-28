@@ -145,16 +145,16 @@ Para cada escenario indique el código HTTP correcto y explique en una línea po
 
 | # | Escenario | Código | Justificación (una línea) |
 |---|---|---|---|
-| a | `GET /api/v1/libros/999999` y ese identificador no existe | | |
-| b | `POST /api/v1/libros` sin cabecera `Authorization` | | |
-| c | Usuario autenticado con rol `LECTOR` envía `POST /api/v1/libros` | | |
-| d | `POST /api/v1/libros` con el campo `titulo` vacío | | |
-| e | Prestar un libro a un socio que ya tiene tres préstamos activos | | |
-| f | La API de Open Library no responde dentro del *timeout* configurado | | |
+| a | `GET /api/v1/libros/999999` y ese identificador no existe | 404 Not Found| Recurso no encontrado|
+| b | `POST /api/v1/libros` sin cabecera `Authorization` |401 Unauthorized | Autenticación requerida|
+| c | Usuario autenticado con rol `LECTOR` envía `POST /api/v1/libros` |403 Forbidden |Autorización denegada |                                
+| d | `POST /api/v1/libros` con el campo `titulo` vacío |400 Bad Request | Validación fallida|                                       
+| e | Prestar un libro a un socio que ya tiene tres préstamos activos |429 Too Many Requests | O 409 Conflict (regla de negocio)|
+| f | La API de Open Library no responde dentro del *timeout* configurado | 502 Bad Gateway| Servicio externo falló|
 
 **g) Explique por qué devolver `200 OK` con un cuerpo `{"success": false}` es un error de diseño, y qué restricción de REST se incumple al hacerlo. (2 puntos)**
 
-**Respuesta:**
+**Respuesta: Incumple Uniform Interface, códigos HTTP deben reflejar semántica real**
 
 
 
