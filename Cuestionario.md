@@ -111,7 +111,13 @@
 
 **Respuesta:**
 
+**Paso 1: Llega la petición, buscar la clave en el cache**
 
+**Paso 2: Si está en cache → retornar respuesta cacheada**
+
+**Paso 3: Si no está → llamar al servicio externo**
+
+**paso 4: Almacenar el resultado en el cache con TTL y retornar**
 
 **b) Justifique técnicamente por qué el TTL de `openlibrary` es doce veces mayor que el de `libros`, y qué criterio general debe guiar la elección de un TTL. (3 puntos)**
 
