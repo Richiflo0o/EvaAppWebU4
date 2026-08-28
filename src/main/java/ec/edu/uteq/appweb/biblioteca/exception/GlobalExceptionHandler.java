@@ -4,6 +4,8 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.access.AccessDeniedException;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private static final String BASE_TIPO = "https://uteq.edu.ec/errores/";
 
     @ExceptionHandler(RecursoNoEncontradoException.class)
@@ -55,6 +58,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail generico(Exception ex) {
+        log.error("Error inesperado", ex);
         return construir(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno",
                 "Ocurrio un error inesperado al procesar la solicitud", "interno");
     }

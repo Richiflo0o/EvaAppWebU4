@@ -1,0 +1,5 @@
+/home/ricardo/Documentos/GitHub/EvaAppWebU4/src/test/java/ec/edu/uteq/appweb/biblioteca/BaseIntegracionTest.java
+/home/ricardo/Documentos/GitHub/EvaAppWebU4/src/test/java/ec/edu/uteq/appweb/biblioteca/BibliotecaApplicationTests.java
+/home/ricardo/Documentos/GitHub/EvaAppWebU4/src/test/java/ec/edu/uteq/appweb/biblioteca/repository/LibroRepositoryTest.java
+/home/ricardo/Documentos/GitHub/EvaAppWebU4/src/test/java/ec/edu/uteq/appweb/biblioteca/web/AutorControllerIT.java
+/home/ricardo/Documentos/GitHub/EvaAppWebU4/src/test/java/ec/edu/uteq/appweb/biblioteca/web/LibroControllerIT.java
