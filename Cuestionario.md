@@ -66,7 +66,7 @@
 
 **Respuesta:**
 
-
+**Firmar NO es cifrar. La firma garantiza integridad (no fue modificado), pero el payload se puede leer sin la clave. Cualquiera que decodifique un JWT (base64) ve el contenido. Guardar la contraseña expone el secreto a cualquiera intercepte el token**
 
 **c) El JWT es *stateless* por diseño, lo que genera un problema conocido: no se puede invalidar un token antes de que expire. Describa dos estrategias distintas para revocarlo y señale la desventaja de cada una. (3 puntos)**
 
