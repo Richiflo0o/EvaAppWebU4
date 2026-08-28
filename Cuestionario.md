@@ -72,7 +72,9 @@
 
 **Respuesta:**
 
+**Blacklist en Redis: Almacena tokens revocados. Desventaja: requiere consultas a Redis (latencia)**
 
+**Tiempo de expiración corto + refresh tokens: Desventaja:增加了 complejidad del cliente para manejar la renovación**
 
 ---
 
