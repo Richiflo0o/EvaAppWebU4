@@ -123,7 +123,11 @@
 
 **Respuesta:**
 
+**libros (TTL 2 min): Catálogo interno que cambia frecuentemente (préstamos, devoluciones)**
 
+**openlibrary (TTL 24 horas): Datos externos que cambian raramente (metadatos de libros)**
+
+**Criterio general: TTL proporcional a la frecuencia de cambios de la fuente**
 
 **c) Explique por qué nunca debe almacenarse en caché la respuesta de un fallo del servicio externo, y describa qué le ocurriría al sistema si se hiciera. (2 puntos)**
 
