@@ -97,7 +97,9 @@
 
 **Respuesta:**
 
+**Seguridad y cumplimiento normativo: SOAP tiene WS-Security para firmas digitales y cifrado de extremo a extremo, requerido para comprobantes fiscales**
 
+**Transacciones distribuidas: SOAP soporta WS-Transactions para garantizar atomicidad en operaciones críticas**
 
 ---
 
