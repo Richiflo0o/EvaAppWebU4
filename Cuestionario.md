@@ -60,7 +60,7 @@
 
 **Respuesta:**
 
-
+**Header, Payload, Signature**
 
 **b) Un compañero afirma: «como el JWT va firmado, puedo guardar en el *payload* la contraseña del usuario sin riesgo». Explique por qué está equivocado, precisando la diferencia entre firmar y cifrar. (2 puntos)**
 
